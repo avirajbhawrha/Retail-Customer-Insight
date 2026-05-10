@@ -1,80 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Problem Statement</title>
+# Google OAuth Setup Guide
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
-            font-family: "Times New Roman", Times, serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+## Step 1: Create Google OAuth Credentials
 
-        .container {
-            width: 80%;
-            max-width: 900px;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
-        }
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Navigate to **APIs & Services** → **Credentials**
+4. Click **+ Create Credentials** → **OAuth 2.0 Client IDs**
+5. If prompted, configure the OAuth consent screen first:
+   - Choose "External" user type
+   - Fill in app name, user support email, and developer contact
+   - Add scopes: `email`, `profile`, `openid`
+6. For Application type, select **Web application**
+7. Add Authorized JavaScript origins:
+   - `http://localhost:3000` (development)
+   - `https://yourdomain.com` (production)
+8. Add Authorized redirect URIs:
+   - `https://gmbwakucarzkcxqkjnoz.supabase.co/auth/v1/callback` (Supabase)
+   - For local dev, also add: `http://localhost:3000/auth/callback`
+9. Copy the **Client ID** and **Client Secret**
 
-        h1 {
-            text-align: center;
-            color: #1e3a5f;
-            font-size: 40px;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #1e3a5f;
-            padding-bottom: 10px;
-            font-weight: bold;
-        }
+## Step 2: Configure in Supabase
 
-        p {
-            font-size: 24px;
-            line-height: 1.8;
-            color: #333;
-            text-align: justify;
-        }
+1. Go to [Supabase Dashboard](https://app.supabase.com/)
+2. Select your project
+3. Navigate to **Authentication** → **Providers**
+4. Enable **Google** provider
+5. Paste your Google **Client ID** and **Client Secret**
+6. Save
 
-        .highlight {
-            font-weight: bold;
-            color: #0d3b66;
-        }
+## Step 3: Verify Redirect URI in Supabase
 
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 18px;
-            color: #555;
-        }
+1. In Supabase, go to **Authentication** → **URL Configuration**
+2. Verify your Site URL is set correctly:
+   - Development: `http://localhost:3000`
+   - Production: `https://yourdomain.com`
 
-    </style>
-</head>
+## Step 4: Test
 
-<body>
+1. Run `npm run dev` locally
+2. Navigate to `http://localhost:3000/login`
+3. Click "Continue with Google"
+4. Sign in with a test Google account
+5. Should redirect to dashboard or onboarding
 
-    <div class="container">
+## Environment Variables
 
-        <h1><b>Problem Statement</b></h1>
+No additional env vars needed for Google OAuth — Supabase handles it automatically using the credentials configured in the dashboard.
 
-        <p>
-            How can the company effectively analyze 
-            <span class="highlight">customer shopping behavior</span> 
-            and 
-            <span class="highlight">purchasing patterns</span> 
-            using consumer data to identify market trends, understand customer preferences, improve customer engagement and satisfaction, and optimize marketing campaigns, sales strategies, and product offerings in order to achieve long-term business growth and customer loyalty?
-        </p>
+## Troubleshooting
 
-       
+- **Redirect URI mismatch**: Ensure the redirect URI in Google Console exactly matches Supabase's OAuth callback URL
+- **Invalid client ID**: Double-check credentials in Supabase are correct
+- **CORS errors**: Make sure authorized origins are set in Google Console
+- **Callback loop**: Check that `/auth/callback` route exists and redirects properly
 
-    </div>
+## Testing with Local Emails
 
-</body>
-</html>
+For development, you can still use email/password login with test accounts created in Supabase:
+
+1. Go to Supabase Dashboard → Authentication → Users
+2. Create a test user with email & password
+3. Use those credentials on `/login` page
