@@ -139,6 +139,4 @@ This project helps businesses analyze customer shopping behavior and purchasing 
 
 ---
 
-## 📄 License
 
-This project is open source and available for personal and educational use.
