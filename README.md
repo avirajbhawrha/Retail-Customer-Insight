@@ -112,13 +112,7 @@ This project analyzes customer shopping behavior and purchasing patterns to help
 
 ---
 
-# Troubleshooting
 
-- **Missing dataset values:** Clean and preprocess the dataset before analysis
-- **Visualization errors:** Ensure required libraries are installed properly
-- **Database connection issues:** Verify PostgreSQL credentials and connection settings
-- **Slow processing:** Optimize large datasets using efficient queries and indexing
-- **Incorrect predictions:** Improve model training with better quality data
 
 ---
 
