@@ -63,7 +63,7 @@ This project analyzes customer shopping behavior and purchasing patterns to help
 
 ---
 
-# Tools & Technologies Used
+#  Tools & Technologies Used
 
 ## Technologies Used
 
