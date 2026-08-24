@@ -30,7 +30,7 @@ This project analyzes customer shopping behavior and purchasing patterns to help
 
 ---
 
-# Step 3: Analyze Customer Shopping Behavior
+#   Step 3: Analyze Customer Shopping Behavior
 
 - Identify frequently purchased products
 - Analyze customer spending habits
